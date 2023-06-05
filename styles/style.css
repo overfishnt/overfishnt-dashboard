@@ -1,0 +1,66 @@
+[data-testid="stSidebar"] {
+    background-image: url(https://fishku.id/assets/img/logo-fishku.png);
+    background-size: 200px;
+    background-repeat: no-repeat;
+    background-position: center 20px;
+}
+
+/* metric cards */
+/* price budget calculation & weather and marine condition*/
+div.css-1r6slb0.e1tzin5v1 {
+    background-color: #ffffff;
+    /* border: 1px solid #CCCCCC; */
+    padding: 2% 2% 2% 5%;
+    border-radius: 5px;
+
+    border-left: 0.5rem solid #2c7be5 !important;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+/* fish activity & market demand */
+div.css-keje6w.e1tzin5v1 {
+    background-color: #ffffff;
+    /* border: 1px solid #CCCCCC; */
+    padding: 2% 2% 2% 5%;
+    border-radius: 5px;
+
+    border-left: 0.5rem solid #2c7be5 !important;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+/* graph card */
+/* Weather */
+div.css-3fi9kc.everg990 {
+    background-color: #FFFFFF;
+    padding: 1% 1% 1% 1%;
+    border-radius: 5px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+/* Heatmap Prediction */
+div.css-ml2xh6.e1tzin5v1 {
+    background-color: #FFFFFF;
+    padding: 2% 2% 2% 2%;
+    border-radius: 5px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+/* recomendation */
+div.css-12w0qpk.e1tzin5v1 {
+    background-color: #FFFFFF;
+    padding: 2% 2% 2% 2%;
+    border-radius: 5px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+/* Budget */
+div.css-115gedg.e1tzin5v1 {
+    background-color: #FFFFFF;
+    padding: 2% 2% 2% 2%;
+    border-radius: 5px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+span.css-10trblm.e16nr0p30 {
+    color: #043770;
+}

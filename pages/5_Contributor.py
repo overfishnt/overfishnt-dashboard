@@ -53,10 +53,10 @@ def contributor_UI() -> str:
     with responden:
         st.markdown("#### Form Responden Data")
         nama = st.text_input("Nama Responden")
-        handphone = st.text_input("HP Responden")
-        responsible_admin = st.text_input("Nama Data Admin")
-        responsible_handphone = st.text_input("Hp Data Admin")
-        data_id = st.text_input("ID Pengolah Data")
+        handphone = st.text_input("Nomor Hp Responden")
+        responsible_admin = st.text_input("Nama Admin")
+        responsible_handphone = st.text_input("Nomor Hp Admin")
+        data_id = st.text_input("NIK Pengolah Data")
         responden_date = st.date_input("Tanggal Pencacatan")
         responden_position = st.selectbox(
             "Posisi Responden",
@@ -69,6 +69,7 @@ def contributor_UI() -> str:
                 "Nelayan",
             ],
         )
+
     # Kapal Column
     with identitas_kapal:
         st.markdown("#### Form Identitas Kapal")
@@ -77,7 +78,17 @@ def contributor_UI() -> str:
         jenis_usaha = st.text_input("Jenis Usaha")
         no_SIPI = st.text_input("Nomor SIPI/SIKPI/BPKP")
         nama_kapal = st.text_input("Nama Kapal")
-        jenis_kapal = st.text_input("Jenis Kapal")
+        jenis_kapal = st.selectbox(
+            "Jenis Kapal",
+            options=[
+                "Koperasi",
+                "UMKM",
+                "Pemilik Kapal",
+                "Nahkoda",
+                "Anak Buah Kapal",
+                "Nelayan",
+            ],
+        )
         wilayah_ikan = st.text_input("Wilayah Penangkapan Ikan")
 
     # Pelabuhan Column

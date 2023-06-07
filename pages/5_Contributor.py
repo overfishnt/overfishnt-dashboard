@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-api_key = "mloverfishntcc"
+api_key = "mloverfishntcc"  # secret API KEY
 url = "http://34.142.135.168:8000/" + api_key
 st.set_page_config(
     page_title="Fishku - Contributor",
@@ -49,6 +49,7 @@ def identitas_kapal_responses() -> str:
 
 def contributor_UI() -> str:
     responden, identitas_kapal, pendaratan = st.columns(3)
+    # Responden Column
     with responden:
         st.markdown("#### Form Responden Data")
         nama = st.text_input("Nama Responden")
@@ -68,6 +69,7 @@ def contributor_UI() -> str:
                 "Nelayan",
             ],
         )
+    # Kapal Column
     with identitas_kapal:
         st.markdown("#### Form Identitas Kapal")
         no_kusuka = st.text_input("Nomor KUSUKA")
@@ -77,6 +79,8 @@ def contributor_UI() -> str:
         nama_kapal = st.text_input("Nama Kapal")
         jenis_kapal = st.text_input("Jenis Kapal")
         wilayah_ikan = st.text_input("Wilayah Penangkapan Ikan")
+
+    # Pelabuhan Column
     with pendaratan:
         st.markdown("#### Form Data Pelabuhan")
         pelabuhan = st.text_input("Nama Pelabuhan")
@@ -111,6 +115,7 @@ def contributor_UI() -> str:
         "wilayah": wilayah_ikan,
     }
 
+    # Check all field is filled
     if (
         pelabuhan
         and provinsi
@@ -136,37 +141,38 @@ def contributor_UI() -> str:
     else:
         submit = st.button("Submit", type="primary", disabled=True)
 
+    # Submit to firestore databases
     try:
         if submit:
-            res = [
-                requests.post(
-                    url + "/add",
-                    json={
-                        "collec": "responden",
-                        "doc": "{0}_{1}_{2}".format(nama, kabupaten_kota, no_SIPI),
-                        "data": data_responden,
-                    },
-                ),
-                requests.post(
-                    url + "/add",
-                    json={
-                        "collec": "pelabuhan",
-                        "doc": "{0}_{1}_{2}".format(nama, kabupaten_kota, no_SIPI),
-                        "data": data_pelabuhan,
-                    },
-                ),
-                requests.post(
-                    url + "/add",
-                    json={
-                        "collec": "kapal",
-                        "doc": "{0}_{1}_{2}".format(nama, kabupaten_kota, no_SIPI),
-                        "data": data_kapal,
-                    },
-                ),
-            ]
+            doc_name = "{0}_{1}_{2}".format(nama, kabupaten_kota, no_SIPI)
+            requests.post(
+                url + "/add",
+                json={
+                    "collec": "responden",
+                    "doc": doc_name,
+                    "data": data_responden,
+                },
+            )
+            requests.post(
+                url + "/add",
+                json={
+                    "collec": "pelabuhan",
+                    "doc": doc_name,
+                    "data": data_pelabuhan,
+                },
+            )
+            requests.post(
+                url + "/add",
+                json={
+                    "collec": "kapal",
+                    "doc": doc_name,
+                    "data": data_kapal,
+                },
+            )
             st.success("Data berhasil Disimpan")
 
     except Exception as e:
         st.error("Data tidak berhasil disimpan")
+
 
 contributor_UI()

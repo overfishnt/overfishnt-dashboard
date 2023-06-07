@@ -49,14 +49,16 @@ def identitas_kapal_responses() -> str:
 
 def contributor_UI() -> str:
     responden, identitas_kapal, pendaratan = st.columns(3)
+    with open('styles/style.css') as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     # Responden Column
     with responden:
         st.markdown("#### Form Responden Data")
         nama = st.text_input("Nama Responden")
         handphone = st.text_input("Nomor Hp Responden")
-        responsible_admin = st.text_input("Nama Admin")
-        responsible_handphone = st.text_input("Nomor Hp Admin")
-        data_id = st.text_input("NIK Pengolah Data")
+        responsible_admin = st.text_input("Nama Penginput Data")
+        responsible_handphone = st.text_input("Nomor Hp Penginput Data")
+        data_id = st.text_input("Kode Penginput Data/NIK")
         responden_date = st.date_input("Tanggal Pencacatan")
         responden_position = st.selectbox(
             "Posisi Responden",
@@ -81,12 +83,10 @@ def contributor_UI() -> str:
         jenis_kapal = st.selectbox(
             "Jenis Kapal",
             options=[
-                "Koperasi",
-                "UMKM",
-                "Pemilik Kapal",
-                "Nahkoda",
-                "Anak Buah Kapal",
-                "Nelayan",
+                "Perahu Tanpa Motor",
+                "Motor Tempel",
+                "Kapal Motor",
+                "Kapal Pengangkut",
             ],
         )
         wilayah_ikan = st.text_input("Wilayah Penangkapan Ikan")
@@ -184,6 +184,5 @@ def contributor_UI() -> str:
 
     except Exception as e:
         st.error("Data tidak berhasil disimpan")
-
 
 contributor_UI()

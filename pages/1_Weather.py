@@ -27,12 +27,11 @@ with st.container():
     with open('styles/style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
-        col1.metric("Temperature", "32 °C", "0.2 °C")
-        col2.metric("Wind", "9 mph", "-8%")
-        col3.metric("Humidity", "86%", "4%")
+        col1.metric("Kecepatan Angin", "9 m/s", "-8%")
+        col2.metric("Curah Hujan", "1 mm", "0.8 mm") #TODO
 
         tab1, tab2, tab3 = st.tabs(
-            ["🌊Gelombang", "💨Gelombang Angin", "〰️Pasang Surut"])
+            ["🌊Gelombang", "💨Kecepatan Angin", "〰️Pasang Surut"])
 
         with tab1:
             st.subheader("Gelombang")
@@ -52,10 +51,10 @@ with st.container():
             st.line_chart(chart_data)
 
         with tab2:
-            st.subheader("Gelombang Angin")
+            st.subheader("Kecepatan Angin")
             col1, col2 = st.columns(2)
             with col1:
-                col1.metric("Gelombang Angin", "1.5 ft", "0.1 ft")
+                col1.metric("Kecepatan Angin", "9 m/s", "-0.9 m/s")
 
             with col2:
                 st.markdown('⏱️ Periode **3s**.')
@@ -63,7 +62,7 @@ with st.container():
 
             chart_data = pd.DataFrame(
                 np.random.randn(24, 1),
-                columns=["Gelombang Angin"])
+                columns=["Kecepatan Angin"])
 
             st.line_chart(chart_data)
 

@@ -12,6 +12,21 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Styling pages
+styles = """<style>
+[data-testid="stSidebar"] {
+    background-image: url(https://fishku.id/assets/img/logo-fishku.png);
+    background-size: 200px;
+    background-repeat: no-repeat;
+    background-position: center 20px;
+    background-color: #ffffff;
+}
+span.css-10trblm.e16nr0p30 {
+    color: #043770;
+}
+</style>"""
+st.markdown(styles, unsafe_allow_html=True)
+
 st.markdown("# Jadilah Kontributor")
 st.write("Mari bantu Fishku dengan menjadi kontributor. Cukup isi form dibawah ini.")
 

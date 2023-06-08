@@ -1,5 +1,8 @@
 tensorflow
 streamlit
-pydantic
-
-# - .e
+pydeck
+dotenv
+requests
+pandas
+numpy
+re

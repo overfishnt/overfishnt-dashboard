@@ -7,8 +7,6 @@ from models.model import (
     predict_model,
 )
 
-tem_data = ""
-
 
 angin_input = {
     "wpp571": [
@@ -492,7 +490,6 @@ with st.container():
             res = predict_model(swh_input[choose.lower()], model)
             # load the column by calling the function above
             hasilkan(res, "ft")
-            tem_data = res[0]
 
 
 

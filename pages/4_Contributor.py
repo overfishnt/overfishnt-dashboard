@@ -1,13 +1,8 @@
 import streamlit as st
 import requests
-from dotenv import load_dotenv
-import os
 
-# Load environment
-load_dotenv()
-
-api_key = os.environ["API_KEY"]  # secret API KEY
-url = os.environ["LINK"] + api_key
+api_key = "mloverfishntcc"  # secret API KEY
+url = "http://34.142.135.168:8000/" + api_key
 
 # Page config
 st.set_page_config(

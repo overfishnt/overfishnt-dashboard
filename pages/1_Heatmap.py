@@ -51,7 +51,7 @@ long_lat = {
 # CONTENT
 with st.container():
     styles: str = os.path.join("machine-learning", "style.css")
-    st.markdown("# FISHKU")
+    st.markdown("# Heatmap Prediction")
 
     # Load the style
     with open("styles/style.css") as f:
@@ -60,8 +60,7 @@ with st.container():
         # Create column
         col1, col2 = st.columns([6, 2])
         with col1:
-            st.write("### Heatmap Prediction")
-            st.write("Cari tahu lokasi berkumpulnya ikan")
+            st.write("### Heatmap")
 
             # Select Area Box
             choose = st.selectbox(

@@ -460,36 +460,39 @@ with st.container():
     with open("styles/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+        tab1, tab2, tab3 = st.tabs(
+            ["🌧️Presipitasi", "🌪️Kecepatan Angin", "🌊Tinggi Gelombang"]
+        )
 
+        with tab1:
+            st.subheader("Presipitasi")
+            # get model path
+            model = get_presipitasi_model(choose)
+            # predict with model
+            res = predict_model(presipitasi_input[choose.lower()], model)
+            # load the column by calling the function above
+            hasilkan(res, "mm", True)
+        
 
-        st.subheader("🌊Tinggi Gelombang")
-        # get model path
-        model = get_swh_model(choose)
-        # predict with model
-        res = predict_model(swh_input[choose.lower()], model)
-        # load the column by calling the function above
-        hasilkan(res, "ft")
-        tem_data = res[0]
+        with tab2:
+            st.subheader("Kecepatan Angin")
+            # get model path
+            model = get_angin_model(choose)
+            # predict with model
+            res = predict_model(angin_input[choose.lower()], model)
+            # load the column by calling the function above
+            hasilkan(res, "m/s")
     
 
-
-        st.subheader("🌪️Kecepatan Angin")
-        # get model path
-        model = get_angin_model(choose)
-        # predict with model
-        res = predict_model(angin_input[choose.lower()], model)
-        # load the column by calling the function above
-        hasilkan(res, "m/s")
-    
-
-
-        st.header("🌧️Presipitasi")
-        # get model path
-        model = get_presipitasi_model(choose)
-        # predict with model
-        res = predict_model(presipitasi_input[choose.lower()], model)
-        # load the column by calling the function above
-        hasilkan(res, "mm",True)
+        with tab3:
+            st.subheader("Tinggi Gelombang")
+            # get model path
+            model = get_swh_model(choose)
+            # predict with model
+            res = predict_model(swh_input[choose.lower()], model)
+            # load the column by calling the function above
+            hasilkan(res, "ft")
+            tem_data = res[0]
 
 
 

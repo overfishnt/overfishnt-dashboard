@@ -15,7 +15,7 @@ with open("styles/style.css") as f:
 st.image("https://fishku.id/assets/img/logo-fishku.png")
 
 st.title("")
-st.subheader("**Fishk**")
+st.subheader("**Fishku**")
 st.write(
     "Fishku merupakan startup e-commerce di bidang perikanan yang bertujuan untuk mempermudah kegiatan jual beli ikan dan mendeteksi kesegaran ikan menggunakan machine learning."
 )

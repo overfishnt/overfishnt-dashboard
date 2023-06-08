@@ -57,7 +57,7 @@ with st.container():
                     float(bensin[0]), float(bensin[1])
                 )
             )
-            harga = [bensin[0] * solar, bensin[1] * solar]
+            harga = [int(bensin[0] * solar), int(bensin[1] * solar)]
             st.write(
                 "**Perkiraan Budget : Rp {0} - Rp {1}**".format(
                     re.sub(r"(?<!^)(?=(\d{3})+$)", r".", str(harga[0])),

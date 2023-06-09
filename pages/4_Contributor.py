@@ -82,6 +82,7 @@ def contributor_UI():
         kecamatan = st.text_input("Kecamatan")
         desa_kelurahan = st.text_input("Desa/Kelurahan")
 
+    # Data Responden dict to be saved
     data_responden = {
         "nama_respon": nama,
         "hp_respon": handphone,
@@ -91,6 +92,8 @@ def contributor_UI():
         "tanggal": str(responden_date),
         "posisi": responden_position,
     }
+    
+    # Data Pelabuhan dict to be saved
     data_pelabuhan = {
         "pelabuhan": pelabuhan,
         "provinsi": provinsi,
@@ -98,6 +101,8 @@ def contributor_UI():
         "kecamatan": kecamatan,
         "kelurahan": desa_kelurahan,
     }
+    
+    # Data Kapal dict to be saved
     data_kapal = {
         "kusuka": no_kusuka,
         "id_sarana": id_sarana,
@@ -108,7 +113,7 @@ def contributor_UI():
         "wilayah": wilayah_ikan,
     }
 
-    # Check all field is filled
+    # Check if all field is filled then enable the button
     if (
         pelabuhan
         and provinsi
@@ -138,6 +143,7 @@ def contributor_UI():
     try:
         if submit:
             doc_name = "{0}_{1}_{2}".format(nama, kabupaten_kota, no_SIPI)
+            # POST to the API
             requests.post(
                 url + "/add",
                 json={
@@ -164,7 +170,9 @@ def contributor_UI():
             )
             st.success("Data berhasil Disimpan")
 
+    # If some error it will print this
     except Exception as e:
         st.error("Data tidak berhasil disimpan")
 
+# Call the function
 contributor_UI()

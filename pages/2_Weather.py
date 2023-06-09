@@ -6,6 +6,7 @@ from models.model import (
     predict_model,
 )
 
+# Angin input data
 angin_input = {
     "wpp571": [
         1.252122248,
@@ -129,6 +130,8 @@ angin_input = {
         6.102493607,
     ],
 }
+
+# Presipitasi input data
 presipitasi_input = {
     "wpp571": [
         0.000006,
@@ -252,6 +255,8 @@ presipitasi_input = {
         0.000056,
     ],
 }
+
+# SWH input data
 swh_input = {
     "wpp571": [
         0.091431,
@@ -420,6 +425,7 @@ def hasilkan(res, x, p=False, a=False, s=False):
         if s:
             col3.subheader(swh(res[2]))
 
+# Function to get angin classification            
 def angin(x):
     x = x * 3.6
     if x < 1:
@@ -449,6 +455,7 @@ def angin(x):
     if x > 117:
         return "Badai topan"
 
+# Function to get presipitasi classification   
 def presipitasi(x):
     if x < 0.02:
         return "Hujan sangat lemah"
@@ -461,6 +468,7 @@ def presipitasi(x):
     if x > 1.0:
         return "Hujan sangat deras"
 
+# Function to get SWH classification   
 def swh(x):
     if x <= 1.25:
         return "Gelombang Tenang"
@@ -471,9 +479,11 @@ def swh(x):
     if x > 4:
         return "Gelombang Tinggi"
 
+
 with st.container():
     st.markdown("# Weather and Marine Condition")
     st.write("Mari lihat **kondisi cuaca dan laut** berdasarkan prediksi dari model kami.")
+    # Select box area
     sbox = st.selectbox(
         "Pilih Area",
         options=[
@@ -488,6 +498,7 @@ with st.container():
         ],
     )
 
+    # Dictionary to get name of model
     choose = {
         "Selat Malaka dan Laut Andaman (WPP571)": "WPP571",
         "Samudra Hindia sebelah Barat Sumatera dan Selat Sunda (WPP572)": "WPP572",
@@ -507,6 +518,7 @@ with st.container():
             ["🌧️Presipitasi", "🌪️Kecepatan Angin", "🌊Tinggi Gelombang"]
         )
 
+        # Tab Presipitasi
         with tab1:
             st.subheader("Presipitasi")
             # get model path
@@ -516,6 +528,7 @@ with st.container():
             # load the column by calling the function above
             hasilkan(res, "mm", p=True)
 
+        # Tab Angin
         with tab2:
             st.subheader("Kecepatan Angin")
             # get model path
@@ -525,6 +538,7 @@ with st.container():
             # load the column by calling the function above
             hasilkan(res, "m/s", a=True)
 
+        # Tab Gelombang
         with tab3:
             st.subheader("Tinggi Gelombang")
             # get model path

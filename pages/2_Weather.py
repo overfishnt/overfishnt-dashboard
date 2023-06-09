@@ -379,7 +379,6 @@ swh_input = {
 }
 
 
-
 # Page Config
 st.set_page_config(
     page_title="Fishku - Weather",
@@ -388,13 +387,12 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+
 # Function to get the column for prediction
 def hasilkan(res, x, m=False):
     col1, col2, col3 = st.columns(3)
     with col1:
-        col1.metric(
-            "Hari Ini", "{0} {1}".format(round(float(res[0]), 4), x), "0%"
-        )
+        col1.metric("Hari Ini", "{0} {1}".format(round(float(res[0]), 4), x), "0%")
         if m:
             col1.subheader(presipitasi(res[0]))
     with col2:
@@ -414,6 +412,7 @@ def hasilkan(res, x, m=False):
         if m:
             col3.subheader(presipitasi(res[2]))
 
+
 # def kapal(wind, swh):
 #     lst = []
 #     if wind >= 7.71666 and swh >= 1.25:
@@ -425,6 +424,7 @@ def hasilkan(res, x, m=False):
 #     if wind >= 13.889988 and swh >= 4.0:
 #         lst.append("Kapal Kargo / Pesiar")
 #     return lst
+
 
 def presipitasi(x):
     if x < 0.02:
@@ -438,21 +438,33 @@ def presipitasi(x):
     if x > 1.0:
         return "Hujan sangat deras"
 
+
 with st.container():
     st.markdown("# Weather and Marine Condition")
-    choose = st.selectbox(
+    sbox = st.selectbox(
         "Select Area",
         options=[
-            "WPP571",
-            "WPP572",
-            "WPP573",
-            "WPP711",
-            "WPP712",
-            "WPP713",
-            "WPP714",
-            "WPP715",
+            "Selat Malaka dan Laut Andaman (WPP571)",
+            "Samudra Hindia sebelah Barat Sumatera dan Selat Sunda (WPP572)",
+            "Samudra Hindia Selatan Jawa hingga Laut Timor bagian Barat (WPP573)",
+            "Selat Karimata, Laut Natuna dan Laut Cina Selatan (WPP711)",
+            "Laut Jawa (WPP712)",
+            "Selat Makassar, Teluk Bone, Laut Flores dan Laut Bali (WPP713)",
+            "Teluk Tolo dan Laut Banda (WPP714)",
+            "Teluk Tomini, Laut Maluku hingga Teluk Berau (WPP715)",
         ],
     )
+
+    choose = {
+        "Selat Malaka dan Laut Andaman (WPP571)": "WPP571",
+        "Samudra Hindia sebelah Barat Sumatera dan Selat Sunda (WPP572)": "WPP572",
+        "Samudra Hindia Selatan Jawa hingga Laut Timor bagian Barat (WPP573)": "WPP573",
+        "Selat Karimata, Laut Natuna dan Laut Cina Selatan (WPP711)": "WPP711",
+        "Laut Jawa (WPP712)": "WPP712",
+        "Selat Makassar, Teluk Bone, Laut Flores dan Laut Bali (WPP713)": "WPP713",
+        "Teluk Tolo dan Laut Banda (WPP714)": "WPP714",
+        "Teluk Tomini, Laut Maluku hingga Teluk Berau (WPP715)": "WPP715",
+    }
 
     # Load the style
     with open("styles/style.css") as f:
@@ -465,37 +477,31 @@ with st.container():
         with tab1:
             st.subheader("Presipitasi")
             # get model path
-            model = get_presipitasi_model(choose)
+            model = get_presipitasi_model(choose[sbox])
             # predict with model
-            res = predict_model(presipitasi_input[choose.lower()], model)
+            res = predict_model(presipitasi_input[choose[sbox].lower()], model)
             # load the column by calling the function above
             hasilkan(res, "mm", True)
-        
 
         with tab2:
             st.subheader("Kecepatan Angin")
             # get model path
-            model = get_angin_model(choose)
+            model = get_angin_model(choose[sbox])
             # predict with model
-            res = predict_model(angin_input[choose.lower()], model)
+            res = predict_model(angin_input[choose[sbox].lower()], model)
             # load the column by calling the function above
             hasilkan(res, "m/s")
-    
 
         with tab3:
             st.subheader("Tinggi Gelombang")
             # get model path
-            model = get_swh_model(choose)
+            model = get_swh_model(choose[sbox])
             # predict with model
-            res = predict_model(swh_input[choose.lower()], model)
+            res = predict_model(swh_input[choose[sbox].lower()], model)
             # load the column by calling the function above
             hasilkan(res, "ft")
-
-
 
         # st.subheader("Rekomendasi Kapal")
         # a = kapal(res[0],tem_data)
         # for x in a:
         #     st.write("**- {0}**".format(x))
-
-            

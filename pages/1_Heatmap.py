@@ -137,26 +137,28 @@ heatmap_input = {
     ],
 }
 
+
 # Function to get fish recommendation
 def ikan(x):
     ikan = []
-    if 0.16<= x <=0.25 :
+    if 0.16 <= x <= 0.25:
         ikan.append("Ekor Kuning")
-    if 0.2<= x <= 0.6 :
+    if 0.2 <= x <= 0.6:
         ikan.append("Tongkol")
-    if 0.09<= x <= 1.2 :
+    if 0.09 <= x <= 1.2:
         ikan.append("Tuna")
-    if 0.5<= x <= 2.5 :
+    if 0.5 <= x <= 2.5:
         ikan.append("Tenggiri")
         ikan.append("Selar")
-    if 1.5<= x <= 2.5 :
+    if 1.5 <= x <= 2.5:
         ikan.append("Teri")
         ikan.append("Bandeng")
-    if 0.67<= x <= 7.11 :
+    if 0.67 <= x <= 7.11:
         ikan.append("Gabus")
-    if 0.22<= x <= 1.12 :
+    if 0.22 <= x <= 1.12:
         ikan.append("Baronang")
     return ikan
+
 
 # Longitude and Latitude for every WPP
 long_lat = {
@@ -188,22 +190,36 @@ with st.container():
             st.write("### Heatmap")
 
             # Select Area Box
-            choose = st.selectbox(
+            sbox = st.selectbox(
                 "Select Area",
                 options=[
-                    "WPP571",
-                    "WPP572",
-                    "WPP573",
-                    "WPP711",
-                    "WPP712",
-                    "WPP713",
-                    "WPP714",
-                    "WPP715",
-                    "WPP716",
-                    "WPP717",
-                    "WPP718",
+                    "Selat Malaka dan Laut Andaman (WPP571)",
+                    "Samudra Hindia sebelah Barat Sumatera dan Selat Sunda (WPP572)",
+                    "Samudra Hindia Selatan Jawa hingga Laut Timor bagian Barat (WPP573)",
+                    "Selat Karimata, Laut Natuna dan Laut Cina Selatan (WPP711)",
+                    "Laut Jawa (WPP712)",
+                    "Selat Makassar, Teluk Bone, Laut Flores dan Laut Bali (WPP713)",
+                    "Teluk Tolo dan Laut Banda (WPP714)",
+                    "Teluk Tomini, Laut Maluku hingga Teluk Berau (WPP715)",
+                    "Laut Sulawesi sebelah Utara Pulau Halmahera (WPP716)",
+                    "Teluk Cendrawasih dan Samudra Pasifik (WPP717)",
+                    "Laut Aru, Laut Arafuru dan Laut Timur bagian Timur (WPP718)",
                 ],
             )
+
+            choose = {
+                "Selat Malaka dan Laut Andaman (WPP571)": "WPP571",
+                "Samudra Hindia sebelah Barat Sumatera dan Selat Sunda (WPP572)": "WPP572",
+                "Samudra Hindia Selatan Jawa hingga Laut Timor bagian Barat (WPP573)": "WPP573",
+                "Selat Karimata, Laut Natuna dan Laut Cina Selatan (WPP711)": "WPP711",
+                "Laut Jawa (WPP712)": "WPP712",
+                "Selat Makassar, Teluk Bone, Laut Flores dan Laut Bali (WPP713)": "WPP713",
+                "Teluk Tolo dan Laut Banda (WPP714)": "WPP714",
+                "Teluk Tomini, Laut Maluku hingga Teluk Berau (WPP715)": "WPP715",
+                "Laut Sulawesi sebelah Utara Pulau Halmahera (WPP716)": "WPP716",
+                "Teluk Cendrawasih dan Samudra Pasifik (WPP717)": "WPP717",
+                "Laut Aru, Laut Arafuru dan Laut Timur bagian Timur (WPP718)": "WPP718",
+            }
 
             # Data Frame
             map_data = pd.DataFrame(list(long_lat.values()), columns=["lat", "lon"])
@@ -213,8 +229,8 @@ with st.container():
                 pdk.Deck(
                     map_style=None,
                     initial_view_state=pdk.ViewState(
-                        latitude=long_lat[choose][0],
-                        longitude=long_lat[choose][1],
+                        latitude=long_lat[choose[sbox]][0],
+                        longitude=long_lat[choose[sbox]][1],
                         zoom=6,
                         pitch=0,
                     ),
@@ -231,16 +247,14 @@ with st.container():
             )
             st.caption("Prakiraan lokasi ikan muncul di perairan")
 
-
-
         with col2:
             st.write("### Rekomendasi")
 
-            # get model path 
-            model = get_heatmap_model(choose)
+            # get model path
+            model = get_heatmap_model(choose[sbox])
 
             # predict with model
-            res = predict_model(heatmap_input[choose.lower()], model)
+            res = predict_model(heatmap_input[choose[sbox].lower()], model)
 
             # result
             st.write("Ikan yang banyak muncul")
@@ -270,6 +284,7 @@ with st.container():
             st.markdown(hide_first, unsafe_allow_html=True)
 
             # visualize the data
+
             st.table(df_today)
             st.table(df_besok)
             st.table(df_lusa)

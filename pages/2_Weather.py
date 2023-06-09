@@ -389,41 +389,70 @@ st.set_page_config(
 
 
 # Function to get the column for prediction
-def hasilkan(res, x, m=False):
+def hasilkan(res, x, p=False, a=False, s=False):
     col1, col2, col3 = st.columns(3)
     with col1:
         col1.metric("Hari Ini", "{0} {1}".format(round(float(res[0]), 4), x), "0%")
-        if m:
+        if p:
             col1.subheader(presipitasi(res[0]))
+        if a:
+            col1.subheader(angin(res[0]))
+        if s:
+            col1.subheader(swh(res[0]))
     with col2:
         col2.metric(
             "Besok",
             "{0} {1}".format(round(float(res[1]), 4), x),
             "{0}%".format(round((float(res[1]) / float(res[0]) - 1) * 100, 2)),
         )
-        if m:
+        if p:
             col2.subheader(presipitasi(res[1]))
+        if a:
+            col2.subheader(angin(res[1]))
+        if s:
+            col2.subheader(swh(res[1]))
     with col3:
         col3.metric(
             "Lusa",
             "{0} {1}".format(round(float(res[2]), 4), x),
             "{0}%".format(round((float(res[2]) / float(res[1]) - 1) * 100, 2)),
         )
-        if m:
+        if p:
             col3.subheader(presipitasi(res[2]))
+        if a:
+            col3.subheader(angin(res[2]))
+        if s:
+            col3.subheader(swh(res[2]))
 
 
-# def kapal(wind, swh):
-#     lst = []
-#     if wind >= 7.71666 and swh >= 1.25:
-#         lst.append("Perahu Nelayan")
-#     if wind >= 8.231104 and swh >= 1.5:
-#         lst.append("Kapal Tongkang")
-#     if wind >= 10.803324 and swh >= 2.5:
-#         lst.append("Kapal Ferry")
-#     if wind >= 13.889988 and swh >= 4.0:
-#         lst.append("Kapal Kargo / Pesiar")
-#     return lst
+def angin(x):
+    x = x * 3.6
+    if x < 1:
+        return "Tenang"
+    if 1 <= x <= 5:
+        return "Sedikit tenang"
+    if 5 < x <= 11:
+        return "Sedikit hembusan angin"
+    if 11 < x <= 19:
+        return "Hembusan angin pelan"
+    if 19 < x <= 29:
+        return "Hembusan angin sedang"
+    if 29 < x <= 39:
+        return "Hembusan angin sejuk"
+    if 39 < x <= 50:
+        return "Hembusan angin kuat"
+    if 50 < x <= 61:
+        return "Mendekati kencang"
+    if 61 < x <= 74:
+        return "Kencang"
+    if 74 < x <= 87:
+        return "Kencang sekali"
+    if 87 < x <= 101:
+        return "Badai"
+    if 101 < x <= 117:
+        return "Badai dahsyat"
+    if x > 117:
+        return "Badai topan"
 
 
 def presipitasi(x):
@@ -437,6 +466,17 @@ def presipitasi(x):
         return "Hujan deras"
     if x > 1.0:
         return "Hujan sangat deras"
+
+
+def swh(x):
+    if x <= 1.25:
+        return "Gelombang Tenang"
+    if 1.25 < x <= 2.5:
+        return "Gelombang Sedang"
+    if 2.5 < x <= 4:
+        return "Gelombang Berombak"
+    if x > 4:
+        return "Gelombang Tinggi"
 
 
 with st.container():
@@ -481,7 +521,7 @@ with st.container():
             # predict with model
             res = predict_model(presipitasi_input[choose[sbox].lower()], model)
             # load the column by calling the function above
-            hasilkan(res, "mm", True)
+            hasilkan(res, "mm", p=True)
 
         with tab2:
             st.subheader("Kecepatan Angin")
@@ -490,7 +530,7 @@ with st.container():
             # predict with model
             res = predict_model(angin_input[choose[sbox].lower()], model)
             # load the column by calling the function above
-            hasilkan(res, "m/s")
+            hasilkan(res, "m/s", a=True)
 
         with tab3:
             st.subheader("Tinggi Gelombang")
@@ -499,9 +539,4 @@ with st.container():
             # predict with model
             res = predict_model(swh_input[choose[sbox].lower()], model)
             # load the column by calling the function above
-            hasilkan(res, "ft")
-
-        # st.subheader("Rekomendasi Kapal")
-        # a = kapal(res[0],tem_data)
-        # for x in a:
-        #     st.write("**- {0}**".format(x))
+            hasilkan(res, "m", s=True)

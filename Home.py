@@ -9,19 +9,29 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Styling the page
-with open("styles/style.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+# Styling pages
+styles = """<style>
+[data-testid="stSidebar"] {
+    background-size: 200px;
+    background-repeat: no-repeat;
+    background-position: center 20px;
+    background-color: #ffffff;
+}
+span.css-10trblm.e16nr0p30 {
+    color: #043770;
+}
+</style>"""
+st.markdown(styles, unsafe_allow_html=True)
 st.image("https://fishku.id/assets/img/logo-fishku.png")
 
 st.title("")
 st.subheader("**Fishku**")
 st.write(
-    "Fishku merupakan startup e-commerce di bidang perikanan yang bertujuan untuk mempermudah kegiatan jual beli ikan dan mendeteksi kesegaran ikan menggunakan machine learning."
+    "Fishku merupakan startup e-commerce di bidang perikanan yang bertujuan untuk mempermudah kegiatan jual beli ikan dan mendeteksi kesegaran ikan yang berbasis machine learning. Fishku juga menyediakan fitur untuk mendeteksi kesegaran ikan dengan memasukkan gambar ikan yang akan dijual."
 )
 st.subheader("**Overfishn't**")
 st.write(
-    "Overfishn't adalah tim yang terbentuk dari Company Capstone Bangkit 2023 bertujuan membuat dashboard untuk membantu para nelayan dalam berlabuh dengan memprediksi beberapa hal yang berkaitan dengan oceanografi."
+    "Overfishn't adalah tim yang terbentuk dari **Company Capstone Bangkit 2023** yang bertujuan membuat dashboard untuk membantu para nelayan dalam berlabuh dengan memprediksi beberapa hal yang berkaitan dengan oseanografi. Kami mengembangkan model berbasis machine learning untuk memprediksi beberapa hal seperti presipitasi, kecepatan angin, dan tinggi gelombang. Selain itu, kami juga mengembangkan model untuk memprediksi jenis ikan yang akan didapatkan oleh para nelayan."
 )
 st.title("")
 st.title("")

@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 st.markdown("# Budget Calculation")
-st.write("Estimasi pengeluaranmu ketika melaut")
+st.write("**Estimasi biaya** yang kamu butuhkan ketika melaut.")
 with st.container():
     col1, col2 = st.columns(2)
 

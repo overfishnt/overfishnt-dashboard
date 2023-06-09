@@ -167,5 +167,4 @@ def contributor_UI():
     except Exception as e:
         st.error("Data tidak berhasil disimpan")
 
-
 contributor_UI()

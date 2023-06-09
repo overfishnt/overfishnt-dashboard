@@ -1,12 +1,10 @@
 import streamlit as st
-import pandas as pd
 from models.model import (
     get_angin_model,
     get_swh_model,
     get_presipitasi_model,
     predict_model,
 )
-
 
 angin_input = {
     "wpp571": [
@@ -378,7 +376,6 @@ swh_input = {
     ],
 }
 
-
 # Page Config
 st.set_page_config(
     page_title="Fishku - Weather",
@@ -386,7 +383,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
 
 # Function to get the column for prediction
 def hasilkan(res, x, p=False, a=False, s=False):
@@ -424,7 +420,6 @@ def hasilkan(res, x, p=False, a=False, s=False):
         if s:
             col3.subheader(swh(res[2]))
 
-
 def angin(x):
     x = x * 3.6
     if x < 1:
@@ -454,7 +449,6 @@ def angin(x):
     if x > 117:
         return "Badai topan"
 
-
 def presipitasi(x):
     if x < 0.02:
         return "Hujan sangat lemah"
@@ -467,7 +461,6 @@ def presipitasi(x):
     if x > 1.0:
         return "Hujan sangat deras"
 
-
 def swh(x):
     if x <= 1.25:
         return "Gelombang Tenang"
@@ -478,11 +471,11 @@ def swh(x):
     if x > 4:
         return "Gelombang Tinggi"
 
-
 with st.container():
     st.markdown("# Weather and Marine Condition")
+    st.write("Mari lihat **kondisi cuaca dan laut** berdasarkan prediksi dari model kami.")
     sbox = st.selectbox(
-        "Select Area",
+        "Pilih Area",
         options=[
             "Selat Malaka dan Laut Andaman (WPP571)",
             "Samudra Hindia sebelah Barat Sumatera dan Selat Sunda (WPP572)",

@@ -179,6 +179,7 @@ long_lat = {
 with st.container():
     styles: str = os.path.join("machine-learning", "style.css")
     st.markdown("# Heatmap Prediction")
+    st.write("**Perkiraan ikan** yang akan kamu dapatkan berdasarkan lokasi dan waktu.")
 
     # Load the style
     with open("styles/style.css") as f:
@@ -191,7 +192,7 @@ with st.container():
 
             # Select Area Box
             sbox = st.selectbox(
-                "Select Area",
+                "Pilih Area",
                 options=[
                     "Selat Malaka dan Laut Andaman (WPP571)",
                     "Samudra Hindia sebelah Barat Sumatera dan Selat Sunda (WPP572)",
